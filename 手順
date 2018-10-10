@@ -1,0 +1,27 @@
+$ sudo apt-get install build-essential \
+     gcc unzip wget zip gcc-avr binutils-avr \
+     avr-libc dfu-programmer dfu-util \
+     gcc-arm-none-eabi binutils-arm-none-eabi \
+     libnewlib-arm-none-eabi git diffutils libusb-dev
+
+$ git clone https://github.com/PaulStoffregen/teensy_loader_cli.git
+$ cd teensy_loader_cli
+$ make
+$ mv tessy_loader_cli /usr/local/bin
+
+$ git clone git@github.com:nakakura/qmk_firmware.git
+$ cd リポジトリルート/keyboards/ergodox
+$ git submodule sync --recursive
+$ git submodule update --init --recursive
+
+キーマップの編集
+$ cd リポジトリルート/keyboards/ergodox/keymaps
+$ cp -R default [あたらしいキーマップの名前]
+$ vim [あたらしいキーマップの名前]
+
+ビルド
+$ cd .. # リポジトリルート/keyboards/ergodox にいるはず
+$ make clean && make keymap=[あたらしいキーマップの名前]
+$ cd ../.. # リポジトリルートにいるはず
+$ sudo make teensy keymap=[あたらしいキーマップの名前]
+
